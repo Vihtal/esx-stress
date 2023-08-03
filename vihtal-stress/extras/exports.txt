@@ -1,0 +1,9 @@
+client sided
+
+exports['vihtal-stress']:AddStress('instant', 100000) -- Adds 100.000 (%10) stress instantly
+
+exports['vihtal-stress']:AddStress('slow', 100000, 5) -- Adds 100.000 (%10) stress gradually in 5 seconds
+
+exports['vihtal-stress']:RemoveStress('instant', 100000) -- Removes 100.000 (%10) stress instantly
+
+exports['vihtal-stress']:RemoveStress('slow', 100000, 5) -- Removes 100.000 (%10) stress gradually in 5 seconds

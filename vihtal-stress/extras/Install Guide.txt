@@ -1,0 +1,5 @@
+1.start off by replacing your esx_basicneeds client/main with the one i have in extras, im using the esx legacy 1.9.4 version of basicneeds.
+2.activate your hud to display stress, i have dx huds client/framework also here if needed.
+3.install vihtal-stress into your server resources  and make sure to run it in your cfg.
+4. add the client exports into your scripts correctly to add/remove stress, i have shooting weapons built in and auto cam shake etc when stressed, I threw in a example screenshot on adding the export to my cat petting script.
+5.i added an item example for ox inventory on how to remove/add stress with an item, water is used but can be a joint or whatever you like just add the correct animations/props.
