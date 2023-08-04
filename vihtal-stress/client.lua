@@ -187,6 +187,53 @@ Citizen.CreateThread(function()--Crashing Vehicle
     end
 end)
 
+local sprintDuration = 8000 -- Set the duration (in milliseconds) of sprinting required to trigger stress 8000 = 8 seconds
+local sprinting = false
+local sprintStartTime = 0
+
+Citizen.CreateThread(function()--Sprinting Too Long
+    while true do
+        local ped = PlayerPedId()
+
+        if not IsPedInAnyVehicle(ped) then
+            if IsControlPressed(0, 21) and IsPedOnFoot(ped) then -- 21 is the sprint control key (Shift by default)
+                if not sprinting then
+                    sprinting = true
+                    sprintStartTime = GetGameTimer()
+                end
+            else
+                if sprinting then
+                    local sprintTime = GetGameTimer() - sprintStartTime
+                    if sprintTime >= sprintDuration then
+                        TriggerServerEvent("stress:add", 10000) -- Adjust the stress amount as needed
+                    end
+                    sprinting = false
+                end
+            end
+        end
+
+        Citizen.Wait(1000) -- Check for sprinting every second to avoid constant stress triggering
+    end
+end)
+
+local fistFightStressAmount = 4000 -- Adjust the stress amount when the player is involved in a fistfight
+
+Citizen.CreateThread(function() --Fist Fighting
+    while true do
+        local ped = PlayerPedId()
+
+        if IsPedInMeleeCombat(ped) then
+            local target = GetMeleeTargetForPed(ped)
+
+            if target and IsEntityAPed(target) then
+                TriggerServerEvent("stress:add", fistFightStressAmount)
+            end
+        end
+
+        Citizen.Wait(1000) -- Check for fistfight every second to avoid constant stress triggering
+    end
+end)
+
 
 
 function AddStress(method, value, seconds)
